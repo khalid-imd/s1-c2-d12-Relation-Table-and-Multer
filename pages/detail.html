@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../public/css/detail.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+    <title>Detail</title>
+</head>
+<body>
+
+      <nav class="navbar navbar-expand-lg bg-light">
+        <div class="container">
+          <img class="navbar-brand img-width" src="https://dumbways.id/assets/images/brandred.png" alt="">
+          
+          <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link active font-bold" aria-current="page" href="/home">Home</a>
+              </li>
+              <li class="nav-item">
+                <!-- <a class="nav-link font-bold" href="/project">Add Project</a> -->
+              </li>
+            </ul>
+            <div>
+              <a href="/contact" class="btn bg-blue font-bold text-white">Contact Me</a>
+            </div>
+          </div>
+          </div>
+        </div>
+      </nav>
+
+      <!-- <div class="mt-5 d-flex justify-content-center">
+        <h1 class="text-bold">{{.DetailProject.Title}} | {{.DetailProject.Author}}</h1>
+      </div> -->
+
+      <div class="container">
+        <h1 class="text-center my-5 fw-bold">{{.DetailProject.Title}}</h1>
+        <div class="d-flex">
+          <img src="/uploads/{{.DetailProject.Image}}" alt="" style="width: 700px" />
+          <div class="ms-5">
+            <h2 class="mb-2">Duration</h2>
+            <p class="mb-2">
+              <i class="fa-solid fa-calendar-days me-3"></i
+              ><span class="fs-5">
+                {{.DetailProject.Formatstartdate}} - {{.DetailProject.Formatenddate}}
+              </span>
+            </p>
+            <p>
+              <i class="fa-solid fa-clock me-3"></i
+              ><span class="fs-5">{{.DetailProject.Duration}}</span>
+            </p>
+            <div class="my-5">
+              <h2 class="mb-3">Technologies</h2>
+              <table>
+  
+                {{ range $index, $item := .DetailProject.Technologies }}
+                <tr>
+  
+                    {{ if eq $item "golang" }}
+                    <td><i class="fa-brands fa-xl fa-golang me-3 mb-4"></i></td>
+                    <td class="icon me-3">Golang</td>
+                    
+  
+                    {{ else if eq $item "js" }}
+                    <td><i class="fa-brands fa-xl fa-js me-3 mb-4"></i></td>
+                    <td class="icon me-3">JavaScript</td>
+                    
+  
+                </tr>
+                <tr>
+  
+                    {{ else if eq $item "react" }}
+                    <td><i class="fa-brands fa-xl fa-react me-3 mb-4"></i></td>
+                    <td class="icon me-3">React</td>
+                    
+  
+                    {{ else if eq $item "node" }}
+                    <td><i class="fa-brands fa-xl fa-node me-3 mb-4"></i></td>
+                    <td class="icon me-3">Node</td>
+                    
+  
+                </tr>
+                {{ end }}
+                {{ end }}
+  
+            </table>
+            </div>
+          </div>
+        </div>
+        <p class="mt-5 fs-4" style="text-align: justify">
+          {{.DetailProject.Description}}
+        </p>
+      </div>
+
+      <!-- <div class="mt-5 d-flex justify-content-center">
+        <div>
+            <img class="img-fluid mx-5" width="600px" src="/uploads/{{.DetailProject.Image}}" alt="image">
+        </div>
+        <div>
+            <div>
+                <h3>Duration</h3>
+                <div class="mb-2 mx-3">
+                    <i class="fa-regular fa-calendar-days icon-30"></i>
+                    <label for="">{{.DetailProject.Formatstartdate}} - {{.DetailProject.Formatenddate}}</label>
+                </div>
+                <div class="mx-3">
+                    <i class="fa-regular fa-clock icon-30"></i>
+                    <label for="">{{.DetailProject.Duration}}</label>
+                </div>
+                <br><br>
+                <h3>Technologies</h3>
+                <div class="mb-2 d-flex">
+                  <div class="mx-3">
+                    {{ range $index, $item := .DetailProject.Technologies }}
+                          <div>
+                            {{ if eq $item "golang" }}
+                            <i class="fa-brands fa-golang mx-2 icon-30"></i>
+                            <label for="" class="text-capitalize">golang</label>
+                          </div>
+                          <div>
+                            {{ else if eq $item "js" }}
+                            <i class="fa-brands fa-js mx-2 icon-30"></i>
+                            <label for="" class="text-capitalize">JavaScript</label>
+                          </div>
+                          </div>
+                          <div class="mx-3">
+                          <div>
+                            {{ else if eq $item "react" }}
+                            <i class="fa-brands fa-react mx-2 icon-30 fa-xl"></i>
+                            <label for="" class="text-capitalize">React</label>
+                          </div>
+                          <div>
+                            {{ else if eq $item "node" }}
+                            <i class="fa-brands fa-node mx-2 icon-30"></i>
+                            <label for="" class="text-capitalize">Node</label>
+                          </div>
+                          {{end}}
+                          {{end}}
+                  </div>
+                </div>
+            </div>
+        </div>
+      </div> -->
+
+      <!-- <div class="mt-5 p-5">
+       <p>
+        {{.DetailProject.Description}}
+       </p>
+      </div> -->
+    
+</body>
+</html>
