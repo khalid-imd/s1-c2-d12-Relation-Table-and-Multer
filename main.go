@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"log"
 
-	// "math"
 	"net/http"
 	"personal-project/connection"
 	"personal-project/middleware"
@@ -178,27 +177,6 @@ func home(w http.ResponseWriter, r *http.Request) {
 
 	}
 
-	// data, _ := connection.Conn.Query(context.Background(), "SELECT db_project.id, title, description, duration, image, db_user.name as author FROM db_project LEFT JOIN db_user on db_project.author_id = db_user.id ")
-
-	// var result []Project
-	// for data.Next() {
-	// 	var each = Project{}
-
-	// 	var err = data.Scan(&each.Id, &each.Title, &each.Description, &each.Duration, &each.Image, &each.Author)
-	// 	if err != nil {
-	// 		fmt.Println(err.Error)
-	// 		return
-	// 	}
-
-	// 	result = append(result, each)
-	// }
-
-	// resData := map[string]interface{}{
-	// 	"DataSession": Data,
-	// 	"Project":     result,
-	// }
-
-	// tmplt.Execute(w, resData)
 }
 
 //===============================================
@@ -464,7 +442,6 @@ func login(w http.ResponseWriter, r *http.Request) {
 
 	user := user{}
 
-	// mengambil data email, dan melakukan pengecekan email
 	err = connection.Conn.QueryRow(context.Background(),
 		"SELECT * FROM db_user WHERE email=$1", email).Scan(&user.ID, &user.Name, &user.Email, &user.Password)
 	if err != nil {
@@ -472,7 +449,6 @@ func login(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// mengambil data email, dan melakukan pengecekan password
 	err = bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(password))
 	if err != nil {
 		w.Write([]byte("message : " + err.Error()))

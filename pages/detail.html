@@ -94,62 +94,6 @@
           {{.DetailProject.Description}}
         </p>
       </div>
-
-      <!-- <div class="mt-5 d-flex justify-content-center">
-        <div>
-            <img class="img-fluid mx-5" width="600px" src="/uploads/{{.DetailProject.Image}}" alt="image">
-        </div>
-        <div>
-            <div>
-                <h3>Duration</h3>
-                <div class="mb-2 mx-3">
-                    <i class="fa-regular fa-calendar-days icon-30"></i>
-                    <label for="">{{.DetailProject.Formatstartdate}} - {{.DetailProject.Formatenddate}}</label>
-                </div>
-                <div class="mx-3">
-                    <i class="fa-regular fa-clock icon-30"></i>
-                    <label for="">{{.DetailProject.Duration}}</label>
-                </div>
-                <br><br>
-                <h3>Technologies</h3>
-                <div class="mb-2 d-flex">
-                  <div class="mx-3">
-                    {{ range $index, $item := .DetailProject.Technologies }}
-                          <div>
-                            {{ if eq $item "golang" }}
-                            <i class="fa-brands fa-golang mx-2 icon-30"></i>
-                            <label for="" class="text-capitalize">golang</label>
-                          </div>
-                          <div>
-                            {{ else if eq $item "js" }}
-                            <i class="fa-brands fa-js mx-2 icon-30"></i>
-                            <label for="" class="text-capitalize">JavaScript</label>
-                          </div>
-                          </div>
-                          <div class="mx-3">
-                          <div>
-                            {{ else if eq $item "react" }}
-                            <i class="fa-brands fa-react mx-2 icon-30 fa-xl"></i>
-                            <label for="" class="text-capitalize">React</label>
-                          </div>
-                          <div>
-                            {{ else if eq $item "node" }}
-                            <i class="fa-brands fa-node mx-2 icon-30"></i>
-                            <label for="" class="text-capitalize">Node</label>
-                          </div>
-                          {{end}}
-                          {{end}}
-                  </div>
-                </div>
-            </div>
-        </div>
-      </div> -->
-
-      <!-- <div class="mt-5 p-5">
-       <p>
-        {{.DetailProject.Description}}
-       </p>
-      </div> -->
     
 </body>
 </html>
