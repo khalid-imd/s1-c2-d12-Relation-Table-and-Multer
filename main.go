@@ -30,6 +30,7 @@ type Project struct {
 	Formatenddate   string
 	Author          string
 	IsLogin         bool
+	Content         string
 }
 
 type SessionData struct {
@@ -126,13 +127,13 @@ func home(w http.ResponseWriter, r *http.Request) {
 
 	if session.Values["IsLogin"] != true {
 
-		data, _ := connection.Conn.Query(context.Background(), "SELECT db_project.id, title, description, duration, image, technologies FROM db_project")
+		data, _ := connection.Conn.Query(context.Background(), "SELECT tb_blog.id, title, content FROM tb_blog")
 
 		var result []Project
 		for data.Next() {
 			var each = Project{}
 
-			var err = data.Scan(&each.Id, &each.Title, &each.Description, &each.Duration, &each.Image, &each.Technologies)
+			var err = data.Scan(&each.Id, &each.Title, &each.Content)
 			if err != nil {
 				fmt.Println(err.Error)
 				return
@@ -151,7 +152,7 @@ func home(w http.ResponseWriter, r *http.Request) {
 	} else {
 
 		sessionID := session.Values["ID"].(int)
-		fmt.Println(sessionID)
+		//fmt.Println(sessionID)
 
 		data, _ := connection.Conn.Query(context.Background(), "SELECT db_project.id, title, description, duration, image FROM db_project WHERE db_project.author_id = $1", sessionID)
 
@@ -223,8 +224,8 @@ func detail(w http.ResponseWriter, r *http.Request) {
 
 	id, _ := strconv.Atoi(mux.Vars(r)["id"])
 
-	err = connection.Conn.QueryRow(context.Background(), "SELECT db_project.id, title, start_date, end_date, image, description, technologies, duration FROM db_project WHERE id=$1", id).Scan(
-		&DetailProject.Id, &DetailProject.Title, &DetailProject.StartDate, &DetailProject.EndDate, &DetailProject.Image, &DetailProject.Description, &DetailProject.Technologies, &DetailProject.Duration)
+	err = connection.Conn.QueryRow(context.Background(), "SELECT tb_blog title, content FROM tb_blog WHERE id=$1", id).Scan(
+		&DetailProject.Title, &DetailProject.Content)
 
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
@@ -239,7 +240,7 @@ func detail(w http.ResponseWriter, r *http.Request) {
 		"DetailProject": DetailProject,
 	}
 
-	fmt.Println(DetailProject)
+	//fmt.Println(DetailProject)
 	tmplt.Execute(w, data)
 }
 
@@ -252,28 +253,28 @@ func submit(w http.ResponseWriter, r *http.Request) {
 	}
 
 	title := r.PostForm.Get("addTitle")
-	startDate := r.PostForm.Get("addStartDate")
-	endDate := r.PostForm.Get("addEndDate")
-	description := r.PostForm.Get("addDescription")
+	// startDate := r.PostForm.Get("addStartDate")
+	// endDate := r.PostForm.Get("addEndDate")
+	content := r.PostForm.Get("addDescription")
 
-	var technologies []string
-	technologies = r.Form["technologies"]
+	// var technologies []string
+	// technologies = r.Form["technologies"]
 
-	layout := "2006-01-02"
-	parsingstartdate, _ := time.Parse(layout, startDate)
-	parsingenddate, _ := time.Parse(layout, endDate)
+	// layout := "2006-01-02"
+	// parsingstartdate, _ := time.Parse(layout, startDate)
+	// parsingenddate, _ := time.Parse(layout, endDate)
 
-	hours := parsingenddate.Sub(parsingstartdate).Hours()
-	days := hours / 24
+	// hours := parsingenddate.Sub(parsingstartdate).Hours()
+	// days := hours / 24
 
-	var duration string
+	// var duration string
 
-	if days > 0 {
-		duration = strconv.FormatFloat(days, 'f', 0, 64) + " days"
-	}
+	// if days > 0 {
+	// 	duration = strconv.FormatFloat(days, 'f', 0, 64) + " days"
+	// }
 
-	dataContext := r.Context().Value("dataFile")
-	image := dataContext.(string)
+	// dataContext := r.Context().Value("dataFile")
+	// image := dataContext.(string)
 
 	var store = sessions.NewCookieStore([]byte("SESSION_KEY"))
 	session, _ := store.Get(r, "SESSION_KEY")
@@ -281,7 +282,7 @@ func submit(w http.ResponseWriter, r *http.Request) {
 	author := session.Values["ID"].(int)
 	fmt.Println(author)
 
-	_, err = connection.Conn.Exec(context.Background(), "INSERT INTO db_project(title, start_date, end_date, description, technologies, image, duration, author_id) VALUES($1, $2, $3, $4, $5, $6, $7, $8)", title, parsingstartdate, parsingenddate, description, technologies, image, duration, author)
+	_, err = connection.Conn.Exec(context.Background(), "INSERT INTO tb_blog(title, content ) VALUES($1, $2)", title, content)
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 		w.Write([]byte("message : " + err.Error()))

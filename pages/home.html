@@ -91,7 +91,7 @@
                         <div class="card-body">
                           <h5 class="card-title"><a href="/detail/{{$data.Id}}">{{$data.Title}} | {{ $data.Author}}</a></h5>
                           <p>duration: {{$data.Duration}}</p>
-                          <p class="card-text">{{$data.Description}}</p>
+                          <p class="card-text">{{$data.Content}}</p>
                           <div class="mb-3">
                             {{ range $index, $item := $data.Technologies }}
                             {{if eq $item "golang" }}
